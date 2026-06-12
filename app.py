@@ -111,6 +111,7 @@ def revoked_token_loader(header,payload):
         "error":"Expired_token"
     }),401
 
+
 @jwt.unauthorized_loader
 def unauthorized_loader(error):
     return jsonify({

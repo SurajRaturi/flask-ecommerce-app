@@ -140,8 +140,11 @@ window.addEventListener("pageshow",(e)=>{
         console.log(order_data);
         if(order_response.status==201){
             alert(order_data.message);
+            window.location.reload();
         }else{
-            alert(order_data.message)
+            alert(order_data.message);
+            window.location.reload();
+            
         }
         
 

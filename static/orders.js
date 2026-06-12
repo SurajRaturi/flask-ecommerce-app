@@ -60,25 +60,6 @@ window.addEventListener("pageshow",(e)=>{
 
                 container.append(order_item);
 
-                // const removeBtn = order_item.querySelector(".delete");
-
-                // removeBtn.addEventListener("click", async() => {
-                //     let delete_cartitem_response=await fetch(`http://192.168.1.37:5000/Empty_Cart/${product.cart_id}`,{
-                //         method:"DELETE",
-                //         headers:{
-                //             "Authorization":`Bearer ${localStorage.getItem("access_token")}`
-                //         }
-                //     });
-                //     let delete_cartitem_data=await delete_cartitem_response.json();
-                //     if(delete_cartitem_response.status==200){
-                //         order_item.remove();
-                //         alert("Item Removed From Cart");
-                //     }else{
-                //         alert(delete_cartitem_data.message);
-                //     };
-                    
-                // });
-
             });
 
         } else {
