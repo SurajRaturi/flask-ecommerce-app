@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <main>
+
+
+        <div id="inner">
+            <div id="heading">
+                <h1>Admin Panel</h1>
+                <div id="heading-icon"><img src="{{ url_for('static', filename='gear.svg') }}"></div>
+            </div>
+            
+            
+            <div id="addproduct"  class="design">
+                <h2>ADD Product</h2>
+                <a href="/addProduct"><div id="add-product-btn" class="icon"><i class="fa-solid fa-plus"></i></div></a>
+            </div>
+            <div id="addcategory"  class="design">
+                <h2>Delete Category</h2>
+                <div id="delete-caetgory-btn" class="icon"><i class="fa-solid fa-trash"></i></div>
+                <input type="text" placeholder="Delete a categroy" id="delete_input">
+            </div>
+            <div id="addcategory"  class="design">
+                <h2>ADD Category</h2>
+                <div id="add-category-btn" class="icon"><i class="fa-solid fa-plus"></i></div>
+                <input type="text" placeholder="Add new categroy" id="textinput">
+            </div>
+
+        </div>
+        
+    </main>
+    <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@latest/dist/dotlottie-wc.js" type="module"></script>
+    <script src="{{ url_for('static', filename='admin_panel.js') }}"></script>
+
+</body>
+</html>

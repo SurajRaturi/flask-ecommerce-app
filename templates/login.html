@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <main>
+        <div id="clipart">
+            <a href="https://storyset.com/user"></a><img src="{{ url_for('static', filename='login.svg') }}">
+        </div>
+
+        
+        <div id="container">
+            <div id="login">
+                <span><h1>Login</h1></span>
+            </div>
+            <div id="username" class="fields">
+                <span><i class="fa-solid fa-user"></i></span>
+                <h3 style="display: inline;">Username</h3>
+                <input type="text" placeholder="Enter your Username">
+            </div>
+            <div id="password" class="fields">
+                <span><i class="fa-solid fa-lock"></i></span>
+                <h3 style="display: inline;">Password</h3>
+                <input type="text" placeholder="Enter your Password">
+                <span class="eye"><i class="fa-solid fa-eye" id="eye"></i></span>
+            </div>
+            <div id="login">
+                <button>Login</button>
+            </div>
+            <div id="text">
+                Does't have account?<a href="/signup"> Create Account</a>
+            </div>
+        </div>
+    </main>
+    <script src="{{ url_for('static', filename='login.js') }}"></script>
+</body>
+</html>

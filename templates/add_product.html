@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>Admin Product Upload</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='add_product.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+</head>
+
+<body>
+
+  <div class="container">
+
+    <h1 id="heading">Add Product</h1>
+
+    <form id="productForm" enctype="multipart/form-data">
+
+      <!-- Product Name -->
+      <div class="form-group">
+        <label>Product Name</label>
+
+        <input
+          type="text"
+          name="name"
+          placeholder="Enter product name"
+          required
+        />
+      </div>
+
+      <!-- Description -->
+      <div class="form-group">
+        <label>Description</label>
+
+        <textarea
+          name="description"
+          placeholder="Enter product description"
+        ></textarea>
+      </div>
+
+      <!-- Category -->
+      <div class="form-group">
+        <label>Category</label>
+
+        <select name="category" id="categoryselect">
+          
+
+        </select>
+      </div>
+
+      <!-- Price -->
+      <div class="form-group">
+        <label>Price</label>
+
+        <input
+          type="number"
+          name="price"
+          placeholder="Enter price"
+          required
+        />
+      </div>
+
+      <!-- Offer -->
+      <div class="form-group">
+        <label>Offer</label>
+
+        <input
+          type="number"
+          name="offer"
+          placeholder="Example: 10% OFF"
+        />
+      </div>
+
+      <!-- Stock -->
+      <div class="form-group">
+        <label>Stock Quantity</label>
+
+        <input
+          type="number"
+          name="stock"
+          placeholder="Available stock"
+        />
+      </div>
+
+      <!-- Product Image -->
+      <div class="form-group">
+        
+
+        <label>Product Image</label>
+
+        <input
+          type="file"
+          name="image"
+          id="imageInput"
+          accept="image/*"
+          required
+          style="display: inline;"
+        />
+
+        <img
+          id="preview"
+          class="preview"
+        />
+
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" id="btn">
+        Upload Product
+      </button>
+
+    </form>
+
+    <div class="message" id="message"></div>
+
+  </div>
+  <script src="{{ url_for('static', filename='add-product.js') }}"></script>
+  <script src="{{ url_for('static', filename='submittform.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+.env
+instance/
+__pycache__/
+*/__pycache__/
+resources/__pycache__/
+Models/__pycache__/
+schemas/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
