@@ -85,7 +85,8 @@ window.addEventListener("pageshow",(e)=>{
                 let cancel_order_data=await cancel_order_response.json();
                 if(cancel_order_response.status==200){
                     alert(cancel_order_data.message);
-                    document.getElementById(button.id).remove();
+                    window.location.reload();
+
                 }else{
                     alert(cancel_order_data.message);
                 }
