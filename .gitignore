@@ -9,3 +9,5 @@ schemas/__pycache__/
 *.pyo
 *.pyd
 .venv/
+static/uploads/*
+!static/uploads/.gitkeep
