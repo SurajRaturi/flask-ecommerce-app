@@ -111,18 +111,18 @@ class buy_product(MethodView):
     def post(self,data,product_id):
         query=UsersModel.query.filter(UsersModel.user_id==int(get_jwt_identity())).first()
         if query.role=="user":
-            query=ProductModel.query.get_or_404(product_id)
+            product=ProductModel.query.get_or_404(product_id)
             image_url=ProductModel.query.filter(ProductModel.product_id==product_id).first()
-            if query:
-                cart_item=Cart_itemModel(name=query.name,quantity=data["quantity"],user_id=int(get_jwt_identity()),price=query.price,img_url=image_url.img_url)
-                try:
-                    db.session.add(cart_item)
-                    db.session.commit()
-                    return {"message":"Now the product is in Your cart"},201
-                except IntegrityError:
-                    abort(400,message="Data already exists")
-                except SQLAlchemyError:
-                    abort(404,message="something went wrong")
+            
+            cart_item=Cart_itemModel(name=product.name,quantity=data["quantity"],user_id=int(get_jwt_identity()),price=product.price,img_url=image_url.img_url)
+            try:
+                db.session.add(cart_item)
+                db.session.commit()
+                return {"message":"Now the product is in Your cart"},201
+            except IntegrityError:
+                abort(400,message="Data already exists")
+            except SQLAlchemyError:
+                abort(404,message="something went wrong")
         abort(401,message="You can not access this feature from Admin account , log in from User account")
 
 @blp_2.route("/product/<int:productid>")
