@@ -71,7 +71,7 @@ with app.app_context():
     db.create_all()
     user=UsersModel.query.filter(UsersModel.role=="admin").first()
     if not user:
-        query=UsersModel(username="suraj",email="surajraturi.51220006@gmail.com",password=pbkdf2_sha256.hash("suraj$5122006&"),role="admin")
+        query=UsersModel(username=os.getenv("ADMIN_USERNAME"),email=os.getenv("ADMIN_EMAIL"),password=pbkdf2_sha256.hash(os.getenv("ADMIN_PASSWORD")),role="admin")
         db.session.add(query)
         db.session.commit()
 
