@@ -41,9 +41,9 @@ class emptycart_by_id(MethodView):
     def delete(self,cartitemid):
         query=UsersModel.query.filter(UsersModel.user_id==int(get_jwt_identity())).first()
         if query.role=="user":
-            query=Cart_itemModel.query.get_or_404(cartitemid)
+            cart=Cart_itemModel.query.get_or_404(cartitemid)
             try:
-                db.session.delete(query)
+                db.session.delete(cart)
                 db.session.commit()
                 return {
                     "message":"Item removed from Cart"

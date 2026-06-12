@@ -18,9 +18,9 @@ class order_now(MethodView):
     def post(self):
         query=UsersModel.query.filter(UsersModel.user_id==int(get_jwt_identity())).first()
         if query.role=="user":
-            query=Cart_itemModel.query.filter(Cart_itemModel.user_id==int(get_jwt_identity())).all()
+            order=Cart_itemModel.query.filter(Cart_itemModel.user_id==int(get_jwt_identity())).all()
             
-            for i in query:
+            for i in order:
                 orderitem=Order_itemsModel(name=i.name,quantity=i.quantity,price=i.price,total_price=i.quantity*i.price,status="Pending",img_url=i.img_url,user_id=i.user_id)
                 db.session.add(orderitem)
                 db.session.delete(i)

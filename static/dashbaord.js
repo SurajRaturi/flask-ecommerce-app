@@ -200,16 +200,16 @@ window.addEventListener("pageshow",(e)=>{
         
     }else{
         document.addEventListener("click", (e) => {
-        if (e.target.classList.contains("add-to-cart")) {
-            const productId=e.target.dataset.productId;
-            if(!cartproducts.has(productId)){
-                cartproducts.add(productId);
-                document.querySelector("#cart-count").innerText = cartproducts.size;
-                document.querySelector("#cart-count").style.display = "block";
-            };
-        
-        }
-    });
+            if (e.target.classList.contains("add-to-cart")) {
+                const productId=e.target.dataset.productId;
+                if(!cartproducts.has(productId)){
+                    cartproducts.add(productId);
+                    document.querySelector("#cart-count").innerText = cartproducts.size;
+                    document.querySelector("#cart-count").style.display = "block";
+                };
+            
+            }
+        });
         
     }
 
