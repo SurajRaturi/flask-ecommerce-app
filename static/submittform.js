@@ -15,6 +15,7 @@ document.querySelector("#productForm button").addEventListener("click",async (e)
         body:formdata
     });
     console.log("beforedata")
+    console.log(form_response)
     let data = await form_response.json();
     if(form_response.status==201){
         alert(data.message);

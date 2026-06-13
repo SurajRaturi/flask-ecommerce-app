@@ -27,10 +27,10 @@ class category(MethodView):
         if query.role=="admin":
             if CategoryModel.query.filter(CategoryModel.name==update["Category_name"]).first():
                 return {"message":"Category already exists"},404
-            querry=CategoryModel(name=update["Category_name"].lower())
+            add_category=CategoryModel(name=(update["Category_name"].lower()).strip())
             try:
 
-                db.session.add(querry)
+                db.session.add(add_category)
                 db.session.commit()
                 return {"message": "Category Added"},201
             except IntegrityError:
