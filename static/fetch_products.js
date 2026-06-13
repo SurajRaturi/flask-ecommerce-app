@@ -56,33 +56,23 @@ let user_info=async ()=>{
 }
 
 
-async  function fetch_product(){
-    let fetch_response=await fetch("http://192.168.1.37:5000/products");
-    let data=await fetch_response.json();
+async function fetch_product() {
+    let fetch_response = await fetch("http://192.168.1.37:5000/products");
+    let data = await fetch_response.json();
 
     data.forEach(product => {
-        let productdiv=document.createElement("div");
-        productdiv.className="product";
-        productdiv.id=product.product_id;
-        let stock;
-        if(product.stock>0){
-            stock="Available";
-        }else{
-            stock="Not Available";
-        };
+        let productdiv = document.createElement("div");
+        productdiv.className = "product";
+        productdiv.id = product.product_id;
+        
+        let stock = product.stock > 0 ? "Available" : "Not Available";
+        let offer_visibilty = product.offer > 0 ? "visible" : "hidden";
+        let original_price = (product.price * 100) / (100 - product.offer);
 
-        let offer_visibilty;
-        if(product.offer>0){
-            offer_visibilty="visible";
-        }
-        else{
-            offer_visibilty="hidden";
-        }
-        let original_price=(product.price*100)/(100-product.offer)
-        productdiv.innerHTML=`<div class="inner">
+        productdiv.innerHTML = `<div class="inner">
                     <img src="http://192.168.1.37:5000/${product.image_url}">
                 </div>
-                <div  class="product-description">${product.description}</div>
+                <div class="product-description">${product.description}</div>
                 <div class="price">
                     <h1>₹${product.price}</h1>
                     <span>MRP : <s>₹${original_price.toFixed(2)}</s></span>
@@ -91,19 +81,23 @@ async  function fetch_product(){
                 <div class="container-2">
                     <div class="offer" style="visibility:${offer_visibilty}">${product.offer}% OFF</div>
                     <div class="add-to-cart" data-product-id="${product.product_id}">+</div>
-                </div>
-                    
-                    
                 </div>`;
+                
+        // 🔄 ADD THIS CHECK HERE: 
+        // If this product was already tracked in the cart across refresh, disable it immediately!
+        const btn = productdiv.querySelector(".add-to-cart");
+        if (typeof cartproducts !== 'undefined' && cartproducts.has(product.product_id.toString())) {
+            btn.innerText = "✓";
+            btn.style.pointerEvents = "none";
+            btn.style.opacity = "0.6";
+        }
+
         document.querySelector("#products").append(productdiv);
     });
-    
-    console.log(fetch_response)
-    console.log(data)
-
 }
 (async()=>{
     await fetch_product();
+    await user_info();
 
 })();
 

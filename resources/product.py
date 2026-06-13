@@ -104,26 +104,54 @@ class product_by_category(MethodView):
         
         
 
-@blp_2.route("/addtocart/<product_id>")
+@blp_2.route("/addtocart/<int:product_id>")
 class buy_product(MethodView):
     @jwt_required()
     @blp_2.arguments(buyproductschema)
-    def post(self,data,product_id):
-        query=UsersModel.query.filter(UsersModel.user_id==int(get_jwt_identity())).first()
-        if query.role=="user":
-            product=ProductModel.query.get_or_404(product_id)
-            image_url=ProductModel.query.filter(ProductModel.product_id==product_id).first()
-            
-            cart_item=Cart_itemModel(name=product.name,quantity=data["quantity"],user_id=int(get_jwt_identity()),price=product.price,img_url=image_url.img_url)
-            try:
-                db.session.add(cart_item)
-                db.session.commit()
-                return {"message":"Now the product is in Your cart"},201
-            except IntegrityError:
-                abort(400,message="Data already exists")
-            except SQLAlchemyError:
-                abort(404,message="something went wrong")
-        abort(401,message="You can not access this feature from Admin account , log in from User account")
+    def post(self, data, product_id):
+        # 1. Identify the current logged-in user
+        current_user_id = int(get_jwt_identity())
+        
+        query_user = UsersModel.query.filter(UsersModel.user_id == current_user_id).first()
+        if not query_user or query_user.role != "user":
+            abort(401, message="You cannot access this feature from an Admin account")
+
+        # 2. Get the target product details from the main products table
+        product_query = ProductModel.query.get_or_404(product_id)
+        
+        # 🛑 3. THE CRUCIAL CHECK: Search if THIS user ALREADY has THIS item name in their cart
+        already_in_cart = Cart_itemModel.query.filter(
+            Cart_itemModel.user_id == current_user_id,
+            Cart_itemModel.name == product_query.name
+        ).first()
+
+        # If a record comes back, it means they are trying to add a duplicate!
+        if already_in_cart:
+            return {
+                "message": "Product is already in your cart! Cannot add duplicate items."
+            }, 400  # Return a 400 Bad Request to stop the frontend execution
+
+        # 4. If unique, proceed safely with creating the single cart item entry
+        image_url = ProductModel.query.filter(ProductModel.product_id == product_id).first()
+        
+        cart_item = Cart_itemModel(
+            name=product_query.name,
+            quantity=data.get("quantity", 1),
+            price=product_query.price,
+            img_url=image_url.img_url if image_url else None,
+            user_id=current_user_id
+        )
+        
+        try:
+            db.session.add(cart_item)
+            db.session.commit()
+            return {"message": "Now the product is in Your cart"}, 201
+        except IntegrityError:
+            db.session.rollback()
+            return {"message": "Product already exists in your cart"}, 400
+        except SQLAlchemyError:
+            db.session.rollback()
+            abort(500, message="Something went wrong while updating the database.")
 
 @blp_2.route("/product/<int:productid>")
 class editproduct(MethodView):

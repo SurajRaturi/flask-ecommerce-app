@@ -1,4 +1,4 @@
-
+let cartproducts=new Set();
 window.addEventListener("pageshow",(e)=>{
 
     console.log("pageshow", e.persisted);
@@ -12,26 +12,51 @@ window.addEventListener("pageshow",(e)=>{
     let dropdown=document.querySelector("#dropdown");
     span.id="current-user";
     async function refreshCartCount() {
+        const access_token = localStorage.getItem("access_token"); // or wherever your token is stored
+        
+        // Fetch items currently residing in the database
         const response = await fetch("http://192.168.1.37:5000/User_Cart", {
             headers: {
                 "Authorization": `Bearer ${access_token}`
             }
-        })
+        });
 
+        if (!response.ok) return;
 
         const cart_data = await response.json();
-
         const countElement = document.querySelector("#cart-count");
 
         if (cart_data.length > 0) {
+            // Update the badge count accurately
             countElement.innerText = cart_data.length;
             countElement.style.display = "block";
+            
+            // 🔄 RESTORE STATE ON REFRESH:
+            cart_data.forEach(item => {
+                // Match the cart item names with the product items rendered on your page
+                document.querySelectorAll(".product").forEach(productEl => {
+                    const titleEl = productEl.querySelector(".product-title") || productEl.querySelector(".product-description");
+                    
+                    if (titleEl && titleEl.innerText.trim() === item.name) {
+                        // Lock it into the local memory tracker so frontend blocks clicks
+                        cartproducts.add(productEl.id.toString());
+                        
+                        // Modify the button design instantly so user knows it's added
+                        const btn = productEl.querySelector(".add-to-cart");
+                        if (btn) {
+                            btn.innerText = "✓";
+                            btn.style.pointerEvents = "none"; // Disables click actions completely
+                            btn.style.opacity = "0.6";
+                        }
+                    }
+                });
+            });
         } else {
             countElement.innerText = "";
             countElement.style.display = "none";
         }
     }
-    let cartproducts=new Set();
+    
 
     console.log(access_token);
 
@@ -136,39 +161,41 @@ window.addEventListener("pageshow",(e)=>{
                     });
                 }
             document.addEventListener("click", async (e) => {
-                if (e.target.classList.contains("add-to-cart")) {
+                // ✅ Change this to find the element or its closest parent with the class
+                const button = e.target.closest(".add-to-cart");
 
+                if (button) {
                     console.log("button clicked"); 
 
-                    const productId=e.target.dataset.productId;
-                    console.log("productid : ",productId);
+                    // Extract dataset from the validated button element
+                    const productId = button.dataset.productId;
+                    console.log("productid : ", productId);
+                    
                     if(!cartproducts.has(productId)){
                         console.log("Before fetch");
-                        let cart_response=await fetch(`http://192.168.1.37:5000/addtocart/${Number(productId)}`,{
-                            method:"POST",
-                            headers:{
-                                "Content-Type":"application/json",
-                                "Authorization":`Bearer ${access_token}`
+                        let cart_response = await fetch(`http://192.168.1.37:5000/addtocart/${Number(productId)}`, {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Authorization": `Bearer ${access_token}`
                             },
-                            body:JSON.stringify({
-                                "quantity":1
+                            body: JSON.stringify({
+                                "quantity": 1
                             })
                         });
-                        let cartdata=await cart_response.json();
+                        let cartdata = await cart_response.json();
                         console.log("After fetch")
-                        if(cart_response.status==201){
-                            
+                        if(cart_response.status == 201){
                             cartproducts.add(productId);
                             document.querySelector("#cart-count").innerText = cartproducts.size;
                             document.querySelector("#cart-count").style.display = "flex";
                             
+                            // ✅ Add this line so your total count refreshes accurately from the backend too!
+                            refreshCartCount();
                         };
                         console.log(cart_response);
                         console.log(cartdata.message);
-                        
-
                     };
-                    
                 }
             });
 

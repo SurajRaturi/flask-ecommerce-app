@@ -46,7 +46,7 @@ class category_by_categoryname(MethodView):
     @jwt_required()
     def delete(self,category):
         query_user=UsersModel.query.filter(UsersModel.user_id==int(get_jwt_identity())).first()
-        query=CategoryModel.query.filter(CategoryModel.name==category.lower()).first()
+        query=CategoryModel.query.filter(CategoryModel.name==(category.lower()).strip()).first()
         if query_user.role=="admin":
             if query:
 
