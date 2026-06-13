@@ -109,29 +109,26 @@ class buy_product(MethodView):
     @jwt_required()
     @blp_2.arguments(buyproductschema)
     def post(self, data, product_id):
-        # 1. Identify the current logged-in user
+
         current_user_id = int(get_jwt_identity())
         
         query_user = UsersModel.query.filter(UsersModel.user_id == current_user_id).first()
         if not query_user or query_user.role != "user":
             abort(401, message="You cannot access this feature from an Admin account")
 
-        # 2. Get the target product details from the main products table
         product_query = ProductModel.query.get_or_404(product_id)
         
-        # 🛑 3. THE CRUCIAL CHECK: Search if THIS user ALREADY has THIS item name in their cart
         already_in_cart = Cart_itemModel.query.filter(
             Cart_itemModel.user_id == current_user_id,
             Cart_itemModel.name == product_query.name
         ).first()
 
-        # If a record comes back, it means they are trying to add a duplicate!
         if already_in_cart:
             return {
                 "message": "Product is already in your cart! Cannot add duplicate items."
-            }, 400  # Return a 400 Bad Request to stop the frontend execution
+            }, 400 
 
-        # 4. If unique, proceed safely with creating the single cart item entry
+
         image_url = ProductModel.query.filter(ProductModel.product_id == product_id).first()
         
         cart_item = Cart_itemModel(
