@@ -1,0 +1,14 @@
+version: "3.8"
+
+services:
+  flask_app:
+    build: .
+    container_name: ecommerce_app
+    ports:
+      - "5000:5000"
+    volumes:
+      # This links their local folder to the container so images save locally
+      - .:/app
+    env_file:
+      - .env # This reads their local admin credentials
+    restart: alwayss

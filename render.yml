@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: flask-ecommerce-api
+    env: docker
+    plan: free # Change to 'starter' if you use a Render Persistent Disk
+    region: oregon # Choose the region closest to your users
+    envVars:
+      - key: RENDER
+        value: "true"
+
+      # Generates a random secure string automatically for JWT tokens
+      - key: JWT_SECRET_KEY
+        generateValue: true
+
+      # Render will ask you to type these values securely during setup
+      - key: ADMIN_USERNAME
+        sync: false
+      - key: ADMIN_EMAIL
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
