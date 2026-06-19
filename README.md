@@ -5,6 +5,7 @@ A complete, feature-rich E-Commerce application built using a modular **Flask RE
 ## 🚀 Features
 
 ### Backend (REST API)
+
 - **Robust Authentication:** Secure registration and login utilizing `Flask-JWT-Extended` with hashed passwords via `passlib`.
 - **Token Blocklisting:** Active token validation and logout management using an in-memory blocklist mechanism.
 - **Role-Based Access Control:** Strict route protections ensuring only authorized administrative users can manage product configurations and inventory.
@@ -12,6 +13,7 @@ A complete, feature-rich E-Commerce application built using a modular **Flask RE
 - **Relational Database Management:** Modular models constructed with `Flask-SQLAlchemy` mapping categories, products, user data, shopping carts, and past orders.
 
 ### Frontend (UI)
+
 - **Dynamic Data Rendering:** Asynchronous operations utilizing the JavaScript `Fetch API` to interact smoothly with the backend without reloading the page.
 - **Responsive Layouts:** Clean layouts optimized for both desktop and mobile devices using modern CSS Flexbox and Media Queries.
 - **Interactive Cart System:** Client-side tracking of shopping cart additions, state management, updates, and live calculations.
@@ -57,28 +59,31 @@ flask-ecommerce-api/
 
 
 ```
+
 <br>
 
 ---
-# 🛠️ Tech Stacks 
+
+# 🛠️ Tech Stacks
+
 - **Backend :** Python, Flask, Flask-Smorest, Flask-SQLAlchemy, Flask-JWT-Extended, Marshmallow (Validation), Passlib.
 - **Frontend :** HTML5, CSS3, JavaScript (ES6+ Vanilla), FontAwesome Icons.
 - **Database :** SQLite (via SQLAlchemy)
 
-
-
 <br><br>
 
-
 ---
+
 # 🔧 Installation & Local Setup
 
 Follow these instructions to clone the project and run it on your local environment.
 
 ## Prerequisite
+
 Make sure you have Python 3.x installed on your system.
 
 ### Steps to Run
+
 **1. Clone the repository:**
 
 <pre>
@@ -89,37 +94,46 @@ cd flask-ecommerce-api
 **2. Create and Activate a Virtual Environment:**
 
 ### Windows
+
 <pre>
 python -m venv venv
 .\venv\Scripts\activate
 </pre>
+
 ### macOS/Linux
+
 <pre>
 python3 -m venv venv
 source venv/bin/activate
 </pre>
 
 **3. Install Dependencies:**
+
 <pre>
 pip install -r requirements.txt
 </pre>
 
 **4. Configure Environment Variables:**
 
-Create a  `.env`  file in the root directory and define your secret keys securely:
+Create a `.env` file in the root directory and define your secret keys securely:
+
 <pre>
 JWT_SECRET_KEY=your_custom_secure_random_string_here
 </pre>
 
-Add **Admin** info also in `.env` file : 
+Add **Admin** info also in `.env` file :
+
 <pre>
 ADMIN_USERNAME=your_name
 ADMIN_EMAIL=_your_email_address
 ADMIN_PASSWORD=your_password
 </pre>
 
-**5. Initialize the Server:**
-<pre>flask run
+**5.Build and Start the Application:**
+
+Run the following command in your terminal to build the blueprint and start the containers:
+
+<pre>docker-compose up --build
 </pre>
 
 Open your browser and navigate to `http://127.0.0.1:5000/` to explore the store.
@@ -128,27 +142,30 @@ Open your browser and navigate to `http://127.0.0.1:5000/` to explore the store.
 
 With the server running, visit `http://127.0.0.1:5000/docs` to interact with the API endpoints via Swagger UI.
 
-
 ---
-# Sample Snippet 
+
+# Sample Snippet
+
 ## Login Page
+
 <br>
 
 ![loginpage](/screenshots/login.png)
 
-
 ## Dashboard Page
+
 <br>
 
 ![dashboardpage](/screenshots/dashboard.png)
 
-
 ## Cart-item page
+
 <br>
 
 ![cartitems](/screenshots/shopping-cart.png)
 
 ## Orders page
+
 <br>
 
 ![orderpage](/screenshots/orders.png)
