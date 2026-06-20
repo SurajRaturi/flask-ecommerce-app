@@ -1,5 +1,5 @@
 let add_option=async ()=>{
-    let option_response=await fetch("http://192.168.1.37:5000/Category",{
+    let option_response=await fetch("/Category",{
         method:"GET",
         headers:{
             "Authorization":`Bearer ${localStorage.getItem("access_token")}`,
