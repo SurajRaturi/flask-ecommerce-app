@@ -70,7 +70,7 @@ async function fetch_product() {
     let original_price = (product.price * 100) / (100 - product.offer);
 
     productdiv.innerHTML = `<div class="inner">
-                    <img src="/static/uploads/${product.image_url}">
+                    <img src="${product.image_url}">
                 </div>
                 <div class="product-description">${product.description}</div>
                 <div class="price">
@@ -134,7 +134,7 @@ document.querySelector("#search-icon").addEventListener("click", async () => {
       let original_price = (product.price * 100) / (100 - product.offer);
 
       productdiv.innerHTML = `<div class="inner">
-                    <img src="/static/uploads/${product.image_url}">
+                    <img src="${product.image_url}">
                 </div>
                 <div  class="product-description">${product.description}</div>
                 <div class="price">
@@ -203,7 +203,7 @@ document
         let original_price = (product.price * 100) / (100 - product.offer);
 
         productdiv.innerHTML = `<div class="inner">
-                    <img src="/static/uploads/${product.image_url}">
+                    <img src="${product.image_url}">
                 </div>
                 <div  class="product-description">${product.description}</div>
                 <div class="price">
