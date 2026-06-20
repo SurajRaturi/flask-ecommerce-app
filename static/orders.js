@@ -37,7 +37,7 @@ window.addEventListener("pageshow", (e) => {
 
         order_item.innerHTML = `
                     <div class="product">
-                        <img src="/${product.image}">
+                        <img src="${product.image}">
                         <div>
                             <h3>${product.name}(${product.quantity})</h3>
                             <h4>Order ID - #3F004GHTZQ-${product.order_id}</h4>

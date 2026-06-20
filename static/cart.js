@@ -40,7 +40,7 @@ window.addEventListener("pageshow", (e) => {
 
         cart_item.innerHTML = `
                     <div class="product">
-                        <img src="/${product.image}">
+                        <img src="${product.image}">
                         <div>
                             <h3>${product.name}</h3>
                             <i class="fa-solid fa-trash delete"></i>
