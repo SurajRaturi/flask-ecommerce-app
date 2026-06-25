@@ -178,50 +178,58 @@ document
     let input_mobile = document.querySelector("#searchbox input");
     let mobile_Search_response = await fetch(`/products/${input_mobile.value}`);
     let mobile_data = await mobile_Search_response.json();
+    console.log(mobile_Search_response.status);
     let stock;
     if (mobile_Search_response.status == 200) {
-      document.querySelector("#products").innerHTML = "";
+      if (mobile_data.length > 0) {
+        document.querySelector("#products").innerHTML = "";
 
-      mobile_data.forEach((product) => {
-        let productdiv = document.createElement("div");
-        productdiv.className = "product";
-        productdiv.id = product.product_id;
+        mobile_data.forEach((product) => {
+          let productdiv = document.createElement("div");
+          productdiv.className = "product";
+          productdiv.id = product.product_id;
 
-        if (product.stock > 0) {
-          stock = "Available";
-        } else {
-          stock = "Not Available";
-        }
+          if (product.stock > 0) {
+            stock = "Available";
+          } else {
+            stock = "Not Available";
+          }
 
-        let offer_visibilty;
-        if (product.offer > 0) {
-          offer_visibilty = "visible";
-        } else {
-          offer_visibilty = "hidden";
-        }
+          let offer_visibilty;
+          if (product.offer > 0) {
+            offer_visibilty = "visible";
+          } else {
+            offer_visibilty = "hidden";
+          }
 
-        let original_price = (product.price * 100) / (100 - product.offer);
+          let original_price = (product.price * 100) / (100 - product.offer);
 
-        productdiv.innerHTML = `<div class="inner">
-                    <img src="${product.image_url}">
-                </div>
-                <div  class="product-description">${product.description}</div>
-                <div class="price">
-                    <h1>₹${product.price}</h1>
-                    <span>MRP : <s>₹${original_price.toFixed(2)}</s></span>
-                    <h4>${stock}</h4>
-                </div>
-                <div class="container-2">
-                    <div class="offer" style="visibility:${offer_visibilty}">${product.offer}% OFF</div>
-                    <div class="add-to-cart" data-product-id="${product.product_id}">+</div>
-                </div>
-                    
-                    
-                </div>`;
+          productdiv.innerHTML = `<div class="inner">
+                      <img src="${product.image_url}">
+                  </div>
+                  <div  class="product-description">${product.description}</div>
+                  <div class="price">
+                      <h1>₹${product.price}</h1>
+                      <span>MRP : <s>₹${original_price.toFixed(2)}</s></span>
+                      <h4>${stock}</h4>
+                  </div>
+                  <div class="container-2">
+                      <div class="offer" style="visibility:${offer_visibilty}">${product.offer}% OFF</div>
+                      <div class="add-to-cart" data-product-id="${product.product_id}">+</div>
+                  </div>
+                      
+                      
+                  </div>`;
 
-        document.querySelector("#products").append(productdiv);
-        console.log(product);
-      });
+          document.querySelector("#products").append(productdiv);
+          console.log(product);
+        });
+      } else {
+        document
+          .querySelector("main")
+          .classList.add("catgeory-not-contain-product");
+        document.textContent = `No item has been added yet to ${input_mobile.value}`;
+      }
       (async () => {
         await user_info();
       })();
