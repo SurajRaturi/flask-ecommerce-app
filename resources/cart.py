@@ -19,8 +19,6 @@ class user_cart(MethodView):
         query=UsersModel.query.filter(UsersModel.user_id==int(get_jwt_identity())).first()
         print("query:  ",query)
         user=UsersModel.query.all()
-        for i in user:
-            print(f" Id : {i.user_id}\nName : {i.username}\nemail : {i.email}\npassword : {i.password}")
         if query.role=="user":
             cart=Cart_itemModel.query.filter(Cart_itemModel.user_id==int(get_jwt_identity())).all()
             return [

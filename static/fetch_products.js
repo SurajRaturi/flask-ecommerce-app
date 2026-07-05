@@ -60,7 +60,7 @@ let user_info = async () => {
 async function fetch_product() {
   let fetch_response = await fetch("/products");
   let data = await fetch_response.json();
-  if (data.length !== 0) {
+  if (data.length > 0) {
     data.forEach((product) => {
       let productdiv = document.createElement("div");
       productdiv.className = "item";
@@ -101,8 +101,9 @@ async function fetch_product() {
 
       document.querySelector("#main-content").append(productdiv);
     });
+  } else {
+    noporudct();
   }
-  noporudct();
 }
 (async () => {
   await fetch_product();
