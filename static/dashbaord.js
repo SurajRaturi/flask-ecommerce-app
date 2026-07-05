@@ -1,14 +1,26 @@
 let cartproducts = new Set();
 window.addEventListener("pageshow", (e) => {
-  console.log("pageshow", e.persisted);
   if (e.persisted) {
     location.reload();
   }
+  function get_footerlinks(role) {
+    const orders = document.getElementById("orders");
+    const cart = document.getElementById("cart");
+    const manage_products = document.getElementById("Manageproducts");
+    if (role === "user") {
+      orders.classList.remove("hidden");
+      cart.classList.remove("hidden");
+    } else if (role === "admin") {
+      orders.classList.add("hidden");
+      cart.classList.add("hidden");
+      manage_products.classList.remove("hidden");
+    }
+  }
   const access_token = localStorage.getItem("access_token");
   let username;
-  let span = document.createElement("span");
-  let icon = document.querySelector("nav #container");
-  let dropdown = document.querySelector("#dropdown");
+  let span = document.getElementById("greeting");
+  let icon = document.querySelector("nav #user-icons");
+  let dropdown = document.getElementById("dropdown");
   span.id = "current-user";
   async function refreshCartCount() {
     const access_token = localStorage.getItem("access_token"); // or wherever your token is stored
@@ -33,17 +45,17 @@ window.addEventListener("pageshow", (e) => {
       // 🔄 RESTORE STATE ON REFRESH:
       cart_data.forEach((item) => {
         // Match the cart item names with the product items rendered on your page
-        document.querySelectorAll(".product").forEach((productEl) => {
+        document.querySelectorAll(".item").forEach((productEl) => {
           const titleEl =
             productEl.querySelector(".product-title") ||
-            productEl.querySelector(".product-description");
+            productEl.querySelector(".description");
 
           if (titleEl && titleEl.innerText.trim() === item.name) {
             // Lock it into the local memory tracker so frontend blocks clicks
             cartproducts.add(productEl.id.toString());
 
             // Modify the button design instantly so user knows it's added
-            const btn = productEl.querySelector(".add-to-cart");
+            const btn = productEl.querySelector(".addtocart");
             if (btn) {
               btn.innerText = "✓";
               btn.style.pointerEvents = "none"; // Disables click actions completely
@@ -58,30 +70,24 @@ window.addEventListener("pageshow", (e) => {
     }
   }
 
-  console.log(access_token);
-
   if (access_token) {
-    console.log("access token found");
-
     let user_info = async () => {
       const auth = await fetch("/user", {
         headers: {
           Authorization: `Bearer ${access_token}`,
         },
       });
-      console.log(auth.status);
+
       const data = await auth.json();
       username = data["username"];
-      console.log("username added to variable");
 
       if (auth.status == 200) {
-        console.log("get response 200 for authentication");
+        get_footerlinks(data.role);
 
         if (data.role == "admin") {
-          console.log("user is admin");
-
           dropdown.innerHTML = `<a href='#'>My Profile</a><a href='/admin' id='manage_product'>Manage Products</a><a href='#' id='Logout'>Logout</a>`;
           span.innerHTML = `<h3>Hello , ${username}</h3>`;
+          span.classList.remove("hidden");
           document.querySelector("#cart").remove();
           document.querySelectorAll(".add-to-cart").forEach((button) => {
             button.innerHTML =
@@ -91,16 +97,14 @@ window.addEventListener("pageshow", (e) => {
             button.style.gap = "10px";
           });
           span.style.color = "black";
-          span.style.fontFamily = "Gill Sans";
           span.style.display = "flex";
           span.style.alignItems = "center";
           dropdown.style.right = "20px";
           // icon.style.marginLeft="330px"
           icon.prepend(span);
-          console.log("dropdown editted");
           document.querySelectorAll(".cross").forEach((button) => {
             button.addEventListener("click", async () => {
-              let product = button.closest(".product");
+              let product = button.closest(".item");
               let delete_product_response = await fetch(
                 `/product/${product.id}`,
                 {
@@ -127,25 +131,25 @@ window.addEventListener("pageshow", (e) => {
 
           document.querySelectorAll(".edit").forEach((button) => {
             console.log("element selected");
-            let product = button.closest(".product");
+            let product = button.closest(".item");
             button.addEventListener("click", () => {
               console.log("button clicked");
               console.log(product.id);
               window.location.href = `/editproduct/${product.id}`;
             });
           });
-        } else {
+        } else if (data.role === "user") {
           dropdown.innerHTML =
             "<a href='#'>My Profile</a><a href='/orders'>Orders</a><a href='#' id='Logout'>Logout</a>";
           span.innerHTML = `<h3>Hello , ${username}</h3>`;
           span.style.color = "black";
-          span.style.fontFamily = "Gill Sans";
+
           span.style.display = "flex";
           span.style.alignItems = "center";
           // icon.style.marginLeft="330px"
           icon.prepend(span);
-          console.log("greeting added");
         }
+
         const cart = document.querySelector("#cart");
         if (cart) {
           cart.addEventListener("click", () => {
@@ -154,17 +158,13 @@ window.addEventListener("pageshow", (e) => {
         }
         document.addEventListener("click", async (e) => {
           // ✅ Change this to find the element or its closest parent with the class
-          const button = e.target.closest(".add-to-cart");
+          const button = e.target.closest(".addtocart");
 
           if (button) {
-            console.log("button clicked");
-
             // Extract dataset from the validated button element
             const productId = button.dataset.productId;
-            console.log("productid : ", productId);
 
             if (!cartproducts.has(productId)) {
-              console.log("Before fetch");
               let cart_response = await fetch(
                 `/addtocart/${Number(productId)}`,
                 {
@@ -179,7 +179,6 @@ window.addEventListener("pageshow", (e) => {
                 },
               );
               let cartdata = await cart_response.json();
-              console.log("After fetch");
               if (cart_response.status == 201) {
                 cartproducts.add(productId);
                 document.querySelector("#cart-count").innerText =
@@ -189,8 +188,6 @@ window.addEventListener("pageshow", (e) => {
                 // ✅ Add this line so your total count refreshes accurately from the backend too!
                 refreshCartCount();
               }
-              console.log(cart_response);
-              console.log(cartdata.message);
             }
           }
         });
@@ -219,7 +216,7 @@ window.addEventListener("pageshow", (e) => {
     user_info();
   } else {
     document.addEventListener("click", (e) => {
-      if (e.target.classList.contains("add-to-cart")) {
+      if (e.target.classList.contains("addtocart")) {
         const productId = e.target.dataset.productId;
         if (!cartproducts.has(productId)) {
           cartproducts.add(productId);

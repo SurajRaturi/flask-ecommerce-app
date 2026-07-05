@@ -3,11 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='dashboard.css') }}"
-    />
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
@@ -15,62 +12,95 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <link
+      href="/your-path-to-uicons/css/uicons-[your-style].css"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <header>
-      <nav>
-        <div id="nav-logo">
-          <img src="{{ url_for('static', filename='image.png') }}" />
-        </div>
-        <div class="nav-searchbox">
-          <input
-            type="text"
-            placeholder="Search For Product Category  e.g, Electronics"
-          />
-          <div id="search-icon" class="searchicon">
-            <i class="fa-solid fa-magnifying-glass"></i>
+    <div class="page-layout">
+      <header class="child">
+        <nav>
+          <div id="logo"><img src="{{ url_for('static', filename='image.png') }}" alt="API LOGO" /></div>
+          <search>
+            <input
+              type="text"
+              placeholder="Search For Product Category e.g, Electronics"
+            />
+            <button><i class="fa-solid fa-magnifying-glass"></i></button>
+          </search>
+          <div id="links">
+            <a
+              href="https://github.com/SurajRaturi/flask-ecommerce-app.git"
+              target="_blank"
+              class="project-link"
+              >Project Link</a
+            >
+            <a href="/docs" target="_blank" class="project-link">DOCS</a>
           </div>
-        </div>
-        <div id="container">
-          <div class="icons" id="user">
-            <i class="fa-solid fa-user"></i>
-            <div id="dropdown">
-              <a href="/login" id="Login">Login</a>
+          <span id="greeting" class="hidden">Hello user</span>
+
+          <div id="user-icons">
+            <div class="icon user">
+              <i class="fa-regular fa-user"></i>
+              <div id="dropdown">
+                 <a href="/login" id="Login">Login</a>
+              </div>
+            </div>
+            <div class="icon" title="cart" id="cart">
+              <i class="fa-solid fa-bag-shopping"></i>
+              <div id="cart-count">1</div>
             </div>
           </div>
-
-          <div class="icons" id="cart">
-            <i class="fa-solid fa-cart-shopping"></i>
-            <h3 id="cart-count">1</h3>
+        </nav>
+      </header>
+      <main class="child">
+        <div id="search">
+          <search>
+            <input
+              type="text"
+              placeholder="Search For Product Category e.g, Electronics"
+            />
+            <button><i class="fa-solid fa-magnifying-glass"></i></button>
+          </search>
+        </div>
+        <div id="main-content">
+          
+        </div>
+      </main>
+      <footer class="child">
+        <div id="text">
+          <h1>E Commerce API</h1>
+          <h4>Built using HTML5,CSS3 and JavaScript</h4>
+          <p>© 2026 All Rights Reserved</p>
+        </div>
+        <div id="footer-nav">
+          <div id="project">
+            <p>SitMap</p>
+            <ul>
+              <li><a href="https://github.com/SurajRaturi/flask-ecommerce-app.git" target="_blank">Project Link</a></li>
+              <li><a href="/docs"> API Docs</a></li>
+              <li class="hidden" id="orders"><a href="/orders">Orders</a></li>
+              <li class="hidden" id="cart"><a href="/cart">Cart</a></li>
+              <li><a href="#">My Profile</a></li>
+              <li class="hidden" id="Manageproducts"><a href="#">Manage Products</a></li>
+            </ul>
+          </div>
+          <div id="Social">
+            <p>Social Links</p>
+            <ul>
+              <li><a href="https://github.com/SurajRaturi" target="_blank"><i class="fa-brands fa-github"></i> GitHub</a></li>
+              <li><a href="https://www.linkedin.com/in/suraj-raturi-developer/" target="_blank"><i class="fa-brands fa-linkedin"></i> Linkdin</a></li>
+              <li><a href="mailto:surajraturi.5122006@gmail.com"><i class="fa-solid fa-envelope"></i> E-mail</li></a>
+            </ul>
           </div>
         </div>
-      </nav>
-    </header>
-    <div id="fakeheader"></div>
-    <main>
-      <div id="offerheadeing">
-        <p>Get 20% OFF on Every Tuseday and Thusday</p>
-      </div>
-      <div id="outer">
-        <div id="searchbox">
-          <input
-            type="text"
-            placeholder="Search For Category  e.g, Electronics"
-          />
-          <div id="search-icon-lower" class="searchicon">
-            <i class="fa-solid fa-magnifying-glass"></i>
-          </div>
+      </footer>
+      <div id="footer-bottom">
+          ~Made by SURAJ RATURI ~
         </div>
-      </div>
-      <section id="products"></section>
-    </main>
-    <footer>
-      <h2>E - Commerce API</h2>
-      <h1>Build using HTML5, CSS5 and Javacript and Flask Famework</h1>
-      <h4>© 2026 All Rights Reserved</h4>
-      <h4>~Made by Suraj raturi~</h4>
-    </footer>
-    <script src="{{ url_for('static', filename='fetch_products.js') }}"></script>
+    </div>
     <script src="{{ url_for('static', filename='dashbaord.js') }}"></script>
+    <script src="{{ url_for('static', filename='fetch_products.js') }}"></script>
   </body>
 </html>
