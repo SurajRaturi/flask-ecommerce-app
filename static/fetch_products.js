@@ -1,7 +1,7 @@
 access_token = localStorage.getItem("access_token");
 function noporudct() {
   const main = document.querySelector("main");
-  main.innerHTML = `<h1>No product has been uploaded yet</h1>`;
+  main.innerHTML = `<h1  style="text-align:center">No product has been uploaded yet</h1>`;
   main.classList.add("no-product");
 }
 let user_info = async () => {
@@ -34,11 +34,11 @@ let user_info = async () => {
             );
             let delete_product_data = await delete_product_response.json();
             if (delete_product_response.status == 200) {
-              document.getElementById(product.id).remove();
-              console.log("removing");
               alert(delete_product_data.message);
+              document.getElementById(product.id).remove();
             } else {
               alert(delete_product_data.message);
+              console.log("else runs");
             }
 
             console.log(product.id);
