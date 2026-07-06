@@ -40,8 +40,6 @@ let user_info = async () => {
               alert(delete_product_data.message);
               console.log("else runs");
             }
-
-            console.log(product.id);
           });
         });
       });
