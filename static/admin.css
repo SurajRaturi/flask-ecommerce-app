@@ -1,187 +1,181 @@
-*{
-    padding: 0;
-    margin: 0;
+* {
+  padding: 0;
+  margin: 0;
 }
-html,body{
-    width: 100vw;
-    height: 100vh;
+html,
+body {
+  width: 100vw;
+  height: 100vh;
 }
-main{
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    
+main {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-a{
-    text-decoration: none;
-    color: black;
+a {
+  text-decoration: none;
+  color: black;
 }
-#inner{
-    width: 70%;
-    border: solid black 1px;
-    display: flex;
-    gap: 50px;
-    flex-wrap: wrap;
-    justify-content: center;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    border-radius: 30px;
-
-
+#inner {
+  width: 70%;
+  display: flex;
+  gap: 50px;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  border-radius: 30px;
 }
-#addcategory{
-    width: 250px;
-    padding: 10px;
+#addcategory {
+  width: 250px;
+  padding: 10px;
 }
-#addcategory input{
-    padding: 10px;
-    border-radius: 15px;
+#addcategory input {
+  padding: 10px;
+  border-radius: 15px;
 }
-#heading-icon{
-    width: 100px;
-    height: 100px;
+#heading-icon {
+  width: 100px;
+  height: 100px;
 }
-#heading-icon img{
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
+#heading-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
-.design{
+.design {
+  width: 200px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 10px;
+  justify-content: space-between;
+  padding: 10px;
+  /* padding: 20px; */
+  border: solid black 1px;
+  box-shadow: 2px 3px 8px 3px rgb(211, 210, 210);
+  border-radius: 20px;
+  transition: 0.5s all ease;
+}
+.design:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 5px 12px 5px rgb(201, 200, 200);
+}
+.icon {
+  width: 50px;
+  height: 50px;
+  border: solid 1px rgb(194, 193, 193);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: x-large;
+  cursor: pointer;
+}
+#heading {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+.icon:hover {
+  background-color: rgb(215, 215, 215);
+}
+@media (max-width: 706px) {
+  /* .design h2{
+        font-size: 20px;
+    } */
+  .design {
+    width: 170px;
+    height: 70px;
+  }
+  .icon {
+    width: 30px;
+    height: 30px;
+    font-size: large;
+  }
+  #inner {
+    gap: 30px;
+  }
+  #addcategory input {
+    padding: 5px;
+    border-radius: 10px;
+    gap: 5px;
+  }
+}
+@media (max-width: 598px) {
+  /* .design h2{
+        font-size: 20px;
+    } */
+  .design {
+    width: 160px;
+    height: 60px;
+  }
+  .icon {
+    width: 20px;
+    height: 20px;
+    font-size: small;
+  }
+  #inner {
+    gap: 20px;
+  }
+  .design h2 {
+    font-size: 20px;
+  }
+}
+@media (max-width: 550px) {
+  #inner {
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+  #addcategory {
+    gap: 5px;
     width: 200px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-    gap: 10px;
-    justify-content: space-between;
-    padding: 10px;
-    /* padding: 20px; */
-    border: solid black 1px;
-    box-shadow: 2px 3px 8px 3px rgb(211, 210, 210);
-    border-radius: 20px;
-    transition: 0.5s all ease;
+  }
 }
-.design:hover{
-    transform: translateY(-5px);
-    box-shadow: 0px 5px 12px 5px rgb(201, 200, 200);
+@media (max-width: 424px) {
+  #heading h1 {
+    font-size: 28px;
+  }
+  #heading #heading-icon {
+    width: 70px;
+    height: 70px;
+  }
 }
-.icon{
-    width:50px;
-    height:50px;
-    border: solid 1px rgb(194, 193, 193);
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: x-large;
-    cursor: pointer;
+@media (max-width: 366px) {
+  #heading h1 {
+    font-size: 20px;
+    font-weight: bolder;
+  }
+  #heading #heading-icon {
+    width: 50px;
+    height: 50px;
+  }
+  .design h2 {
+    font-size: 15px;
+  }
 }
-#heading{
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-}
-.icon:hover{
-    background-color: rgb(215, 215, 215);
-}
-@media (max-width:706px) {
-    /* .design h2{
-        font-size: 20px;
-    } */
-    .design{
-        width: 170px;
-        height: 70px;
-    }
-    .icon{
-        width: 30px;
-        height: 30px;
-        font-size: large;
-    }
-    #inner{
-        gap: 30px;
-    }
-    #addcategory input{
-        padding: 5px;
-        border-radius: 10px;
-        gap: 5px;
-    }
-}
-@media (max-width:598px) {
-    /* .design h2{
-        font-size: 20px;
-    } */
-    .design{
-        width: 160px;
-        height: 60px;
-    }
-    .icon{
-        width: 20px;
-        height: 20px;
-        font-size: small;
-    }
-    #inner{
-        gap: 20px;
-    }.design h2{
-        font-size: 20px;
-    }
-}
-@media (max-width:550px) {
-    
-    #inner{
-        padding-top: 5px;
-        padding-bottom: 5px;
-    }
-    #addcategory{
-        gap: 5px;
-        width: 200px;
-    }
-}
-@media (max-width:424px) {
-    
-    #heading  h1{
-        font-size: 28px;
-    }
-    #heading #heading-icon{
-        width: 70px;
-        height: 70px;
-    }
-}
-@media (max-width:366px) {
-    
-    #heading  h1{
-        font-size: 20px;
-        font-weight: bolder;
-    }
-    #heading #heading-icon{
-        width: 50px;
-        height: 50px;
-    }
-    .design h2{
-        font-size: 15px;
-    }
-}
-@media (max-width:276px) {
-    
-    #heading  h1{
-        font-size: 20px;
-        font-weight: bolder;
-    }
-    #heading #heading-icon{
-        width: 50px;
-        height: 50px;
-    }
-    .design h2{
-        font-size: 15px;
-    }
-    .design{
-        width: 130px;
-        height: 50px;
-    }
-    #addcategory input{
-        padding: 3px;
-    }
+@media (max-width: 276px) {
+  #heading h1 {
+    font-size: 20px;
+    font-weight: bolder;
+  }
+  #heading #heading-icon {
+    width: 50px;
+    height: 50px;
+  }
+  .design h2 {
+    font-size: 15px;
+  }
+  .design {
+    width: 130px;
+    height: 50px;
+  }
+  #addcategory input {
+    padding: 3px;
+  }
 }
