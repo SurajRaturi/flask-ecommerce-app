@@ -2,6 +2,8 @@
 
 A complete, feature-rich E-Commerce application built using a modular **Flask REST API** backend and a responsive, dynamic **HTML5/CSS3/JavaScript (Vanilla JS)** frontend. The application includes robust token-based authentication, user shopping carts, order placements, and a full administrative dashboard for product inventory management.
 
+Live link -  https://flask-ecommerce-app-1.onrender.com/
+
 ## 🚀 Features
 
 ### Backend (REST API)
